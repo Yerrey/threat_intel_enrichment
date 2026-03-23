@@ -48,5 +48,4 @@ testing purposes.
 ## Future Improvements
 - Add rate limiting to comply with free tier constraints
 - Defensive check if API key environment variable is not set
-- Export results to a CSV report
 - Extend to support domain and URL lookups in addition to IPs
