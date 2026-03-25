@@ -1,11 +1,17 @@
 import requests 
 import os
 import csv
+import time 
 
 
+#This PS comand is what creates a temporary environment variable, I am leaving this here so I don't have to keep re typing the whole thing 
+#$env:VT_API_KEY = "API_KEY_GOES_HERE"
+
+
+# the api_key uses os.getenv() to create a temporary variable that lives in the terminal
 api_key = os.getenv("VT_API_KEY")
-
-if api_key == None:
+# Defensive check for missing API key 
+if api_key is  None:
     print("ERROR: NO API KEY FOUND")
     exit()
 
@@ -44,5 +50,6 @@ with open("triage_report.csv", "w", newline='', encoding='utf-8') as file:
             print(verdict)
 
         writer.writerow([ip, malicious, suspicious, harmless, verdict])
-        
+        # using rate limits to stay within VirusTotal's 4 requests per minute
+        time.sleep(15)
 

@@ -46,5 +46,4 @@ testing purposes.
 ```
 
 ## Future Improvements
-- Add rate limiting to comply with free tier constraints
 - Extend to support domain and URL lookups in addition to IPs
