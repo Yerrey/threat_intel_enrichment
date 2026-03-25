@@ -4,6 +4,12 @@ import csv
 
 
 api_key = os.getenv("VT_API_KEY")
+
+if api_key == None:
+    print("ERROR: NO API KEY FOUND")
+    exit()
+
+
 ip_list = ["8.8.8.8", "1.1.1.1", "185.220.101.45"]
 
 
