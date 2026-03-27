@@ -44,6 +44,3 @@ testing purposes.
 ```powershell
    python enrichment.py
 ```
-
-## Future Improvements
-- Extend to support domain and URL lookups in addition to IPs
