@@ -16,7 +16,6 @@ if api_key is  None:
     exit()
 
 
-# ip_list = ["8.8.8.8", "1.1.1.1", "185.220.101.45"]
 
 indicators = [
     {"type": "ip", "value": "8.8.8.8"},
@@ -69,4 +68,13 @@ with open("triage_report.csv", "w", newline='', encoding='utf-8') as file:
         writer.writerow([indicator["value"], malicious, suspicious, harmless, verdict])
         # using rate limits to stay within VirusTotal's 4 requests per minute
         time.sleep(15)
+
+
+
+
+
+
+
+
+            
 
