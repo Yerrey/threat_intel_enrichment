@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: threat-intel-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: threat-intel-tool
+          image: threat-intel-tool:latest
+          imagePullPolicy: Never
+          env:
+          - name: VT_API_KEYkube
+            valueFrom:
+              secretKeyRef:
+                name: vt-api-key 
+                key: VT_API_KEY 
+      restartPolicy: Never

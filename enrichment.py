@@ -20,7 +20,7 @@ indicators = [
     {"type": "domain", "value": "google.com"},
     {"type": "ip", "value":"1.1.1.1" },
     {"type": "ip", "value": "185.220.101.45"},
-    {"type": "domain", "value": "youtube.com"},
+    {"type": "domain", "value": "zcbank.com"},
     {"type": "domain", "value": "guitarcenter.com"}
 ]
 
