@@ -29,6 +29,9 @@ def build_url(indicator):
         url = f"https://www.virustotal.com/api/v3/ip_addresses/{indicator['value']}"
     elif indicator["type"] == "domain":
         url = f"https://www.virustotal.com/api/v3/domains/{indicator['value']}"
+    else:
+        return None
+
 
     return url
 
