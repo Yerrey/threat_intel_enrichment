@@ -18,6 +18,7 @@ if api_key is  None:
 
 
 indicators = []
+#Replaces the need to hard-code an indicators list. sys.argv will read from external file, and append to indicator list. 
 with open(sys.argv[1], "r") as file: 
 
     for line in file:
