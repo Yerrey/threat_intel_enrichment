@@ -2,6 +2,7 @@ import requests
 import os
 import csv
 import time 
+import sys
 
 
 #This PS comand is what creates a temporary environment variable, I am leaving this here so I don't have to keep re typing the whole thing 
@@ -15,14 +16,14 @@ if api_key is  None:
     print("ERROR: NO API KEY FOUND")
     exit()
 
-indicators = [
-    {"type": "ip", "value": "8.8.8.8"},
-    {"type": "domain", "value": "google.com"},
-    {"type": "ip", "value":"1.1.1.1" },
-    {"type": "ip", "value": "185.220.101.45"},
-    {"type": "domain", "value": "zcbank.com"},
-    {"type": "domain", "value": "guitarcenter.com"}
-]
+
+indicators = []
+with open(sys.argv[1], "r") as file: 
+
+    for line in file:
+        parts = line.strip().split(":")
+        indicators.append({"type": parts[0], "value": parts[1]})
+
 
 def build_url(indicator):
     if indicator["type"] == "ip":
@@ -77,4 +78,5 @@ run_analysis(indicators)
 
 
             
+
 
