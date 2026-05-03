@@ -18,6 +18,11 @@ if api_key is  None:
 
 
 indicators = []
+#error handling in the case that no indicators file is provided 
+if len(sys.argv) < 2:
+    print("Usage: python <script_file> <indicators_file>")
+    exit()
+
 #Replaces the need to hard-code an indicators list. sys.argv will read from external file, and append to indicator list. 
 with open(sys.argv[1], "r") as file: 
 
@@ -27,20 +32,35 @@ with open(sys.argv[1], "r") as file:
 
 
 def build_url(indicator):
-    if indicator["type"] == "ip":
-        url = f"https://www.virustotal.com/api/v3/ip_addresses/{indicator['value']}"
-    elif indicator["type"] == "domain":
-        url = f"https://www.virustotal.com/api/v3/domains/{indicator['value']}"
-    else:
-        return None
+    try:
+
+        if indicator["type"] == "ip":
+            url = f"https://www.virustotal.com/api/v3/ip_addresses/{indicator['value']}"
+        elif indicator["type"] == "domain":
+            url = f"https://www.virustotal.com/api/v3/domains/{indicator['value']}"
+        else:
+            return None
 
 
-    return url
+        return url
+    
+    except KeyError:
+        print("Invalid indicator format — missing type or value")
 
 def query_virustotal(url, api_key):
-    response = requests.get(url, headers = {"x-apikey": api_key})
-    result = response.json()
-    return result
+    try:
+
+        response = requests.get(url, headers = {"x-apikey": api_key})
+
+        if response.status_code != 200:
+            print(f"API ERROR: {response.status_code}")
+            return None 
+        
+        result = response.json()
+        return result
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 
 def get_verdict(malicious):
     if malicious > 5:
@@ -52,14 +72,18 @@ def get_verdict(malicious):
         
 
 def run_analysis(indicators):
-
+    
     with open("triage_report.csv", "w", newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(["IP | DOMAIN", "Malicious", "Suspicious", "Harmless", "Verdict"])
 
         for indicator in indicators: 
             url = build_url(indicator)
+            if url is None:
+                continue
             result = query_virustotal(url,api_key)
+            if result is None:
+                continue
 
             malicious = result["data"]["attributes"]["last_analysis_stats"]["malicious"]
             suspicious = result["data"]["attributes"]["last_analysis_stats"]["suspicious"]
