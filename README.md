@@ -42,11 +42,11 @@ testing purposes.
 ```
 3. Run the script:
 ```powershell
-   python enrichment.py
+   python enrichment.py indicators.txt
 ```
 ## Future Improvements
 
-### In Progress
+### In Progress / Completed
 - **Docker containerization** — packaging the script and its dependencies 
   into a portable container image for consistent execution across environments
 - **Kubernetes deployment** — deploying the containerized script to a local 
@@ -57,12 +57,5 @@ testing purposes.
   secret handling
 
 ### Planned
-- **Scalability refactor** — abstracting the input layer using `*args`/`**kwargs` 
-  to accept flexible input beyond hardcoded lists (files, stdin, API feeds)
-- **URL and file hash lookups** — extending IOC support beyond IPs and domains 
-  to include URLs and file hashes, covering the full range of VirusTotal's 
-  threat intel capabilities
-- **Defensive API error handling** — gracefully handling rate limit errors, 
-  network timeouts, and unexpected API responses instead of crashing
 - **Export options** — support for JSON output in addition to CSV, making 
   the triage report easier to pipe into SIEMs or ticketing systems
